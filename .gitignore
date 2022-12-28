@@ -1,4 +1,5 @@
 Procfile
+apiKeys.json
 
 # Logs
 logs
