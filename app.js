@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const https = require('https');
-const { response } = require('express');
+// const { response } = require('express');
 
 const app = express();
 app.use(express.static("public"));
@@ -35,7 +35,7 @@ app.post("/",function(req,res){
     const url = "https://us21.api.mailchimp.com/3.0/lists/112eeb3a20"
     const options = {
         method:"POST",
-        auth:"Benzter:a790380658db5b5b8e819f1ae07b3a744-us21"
+        auth:"Benzter:790380658db5b5b8e819f1ae07b3a744-us21"
     }
 
     const request = https.request(url,options,function(response){
@@ -44,9 +44,9 @@ app.post("/",function(req,res){
         }else{
             res.sendFile(__dirname +"/failure.html");
         }
-        response.on("data",function(data){
-            console.log(JSON.parse(data));
-        })
+        // response.on("data",function(data){
+        //     console.log(JSON.parse(data));
+        // })
     });
 
     request.write(jsondata);
@@ -57,7 +57,7 @@ app.post("/failure",function(req,res){
     res.redirect("/");
 })
 
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
     console.log("server is succesfully started on port 3000")
 })
 
