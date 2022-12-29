@@ -38,10 +38,11 @@ app.post("/", function (req, res) {
     if (err) throw err;
     const apiDetails = JSON.parse(data);
 
-    const url = "https://us21.api.mailchimp.com/3.0/lists/112eeb3a20";
+    const url =
+      "https://us21.api.mailchimp.com/3.0/lists/" + apiDetails.list_id;
     const options = {
       method: "POST",
-      auth: "benzter:fcf1b7153d32dce34b97085e7d552e9c-us21",
+      auth: "benzter:" + apiDetails.api_key,
     };
 
     const request = https.request(url, options, function (response) {
@@ -51,9 +52,9 @@ app.post("/", function (req, res) {
         res.sendFile(__dirname + "/failure.html");
         console.log(response);
       }
-      response.on("data", function (data) {
-        console.log(JSON.parse(data));
-      });
+      // response.on("data", function (data) {
+      //   console.log(JSON.parse(data));
+      // });
     });
 
     request.write(jsondata);
